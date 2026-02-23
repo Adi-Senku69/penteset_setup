@@ -32,6 +32,9 @@
       - libxkbcommon-dev
       - python3
       - luarocks
+      - libc6-dev
+      - openvpn
+      - flameshot
     state: present
 
 - name: Autoremove unused packages

@@ -11,6 +11,7 @@
 #     state: absent
 
 - name: Clone alacritty config from repo
+  when: not alacritty_config_stat.stat.exists
   ansible.builtin.git:
     repo: "{{ alacritty_config_repo }}"
     dest: "{{ user_home }}/.config/alacritty"
