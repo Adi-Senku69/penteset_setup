@@ -1,0 +1,45 @@
+---
+- name: Check if zellij is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/zellij"
+  register: zellij_stat
+
+- name: Create ~/.local/bin directory
+  ansible.builtin.file:
+    path: "{{ local_bin }}"
+    state: directory
+    mode: "0755"
+
+- name: Download zellij release archive
+  when: not zellij_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "{{ zellij_url }}"
+    dest: "/tmp/zellij.tar.gz"
+    mode: "0644"
+
+- name: Extract zellij binary
+  when: not zellij_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/zellij.tar.gz
+    dest: "{{ local_bin }}"
+    remote_src: true
+    mode: "0755"
+
+- name: Clean up zellij temp archive
+  when: not zellij_stat.stat.exists
+  ansible.builtin.file:
+    path: /tmp/zellij.tar.gz
+    state: absent
+
+- name: Create zellij config directory
+  ansible.builtin.file:
+    path: "{{ user_home }}/.config/zellij"
+    state: directory
+    mode: "0755"
+
+- name: Generate default zellij config if not present
+  ansible.builtin.shell: |
+    {{ local_bin }}/zellij setup --dump-config > {{ user_home }}/.config/zellij/config.kdl
+  args:
+    executable: /bin/bash
+    creates: "{{ user_home }}/.config/zellij/config.kdl"

@@ -1,0 +1,22 @@
+---
+# Parrot OS Pentest Environment Setup
+# Usage: ansible-playbook site.yml --ask-become-pass
+
+- name: Setup Parrot OS Pentest Environment
+  hosts: localhost
+  connection: local
+  become: false
+
+  roles:
+    - system
+    - rust
+    - fonts
+    - alacritty
+    - zsh
+    - powerlevel10k
+    - neovim
+    - uv
+    - yazi
+    - zellij
+    - lazygit
+    - custom-tools

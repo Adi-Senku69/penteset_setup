@@ -1,0 +1,40 @@
+---
+- name: Update apt cache
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install prerequisite packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - git
+      - nodejs
+      - npm
+      - xclip
+      - ripgrep
+      - fd-find
+      - fzf
+      - jq
+      - p7zip-full
+      - zoxide
+      - curl
+      - wget
+      - unzip
+      - fontconfig
+      - zsh
+      - cmake
+      - pkg-config
+      - libfreetype6-dev
+      - libfontconfig1-dev
+      - libxcb-xfixes0-dev
+      - libxkbcommon-dev
+      - python3
+      - luarocks
+    state: present
+
+- name: Autoremove unused packages
+  become: true
+  ansible.builtin.apt:
+    autoremove: true

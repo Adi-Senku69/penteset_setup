@@ -1,0 +1,12 @@
+---
+- name: Create ~/opt tools directory
+  ansible.builtin.file:
+    path: "{{ user_home }}/opt"
+    state: directory
+    mode: "0755"
+
+- name: Ensure ~/.local/bin exists
+  ansible.builtin.file:
+    path: "{{ local_bin }}"
+    state: directory
+    mode: "0755"

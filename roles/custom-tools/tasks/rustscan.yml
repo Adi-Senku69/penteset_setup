@@ -1,0 +1,58 @@
+---
+- name: Check if rustscan exists in given locations
+  ansible.builtin.stat:
+    path: "{{ item }}"
+  loop:
+    - /usr/local/bin/rustscan
+    - /usr/bin/rustscan
+    - "{{ local_bin }}/rustscan"
+  register: rustscan_results
+
+- name: Set single result
+  ansible.builtin.set_fact:
+    rustscan_stat: >-
+      {{ rustscan_results.results
+         | selectattr('stat.exists')
+         | list
+         | length > 0 }}
+
+- name: Get latest rustscan release version
+  when: not rustscan_stat
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/bee-san/RustScan/releases/latest"
+    return_content: true
+  register: rustscan_release
+
+- name: Download rustscan binary
+  when: not rustscan_stat
+  ansible.builtin.get_url:
+    url: "https://github.com/bee-san/RustScan/releases/download/{{ rustscan_release.json.tag_name }}/rustscan.deb.zip"
+    dest: "/tmp/rustscan.deb.zip"
+    mode: "0644"
+
+- name: Ensure unzip is installed
+  become: true
+  ansible.builtin.apt:
+    name: unzip
+    state: present
+    update_cache: yes
+
+- name: Unzip rustscan package
+  when: not rustscan_stat
+  ansible.builtin.command:
+    cmd: unzip -o /tmp/rustscan.deb.zip -d /tmp/
+
+- name: Install rustscan deb package
+  become: true
+  when: not rustscan_stat
+  ansible.builtin.apt:
+    deb: "/tmp/rustscan_{{ rustscan_release.json.tag_name | regex_replace('^v', '') }}-1_amd64.deb"
+
+- name: Clean up rustscan files
+  when: not rustscan_stat
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /tmp/rustscan.deb.zip
+    - "/tmp/rustscan_{{ rustscan_release.json.tag_name | regex_replace('^v', '') }}-1_amd64.deb"

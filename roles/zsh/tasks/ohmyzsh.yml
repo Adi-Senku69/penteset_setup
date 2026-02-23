@@ -1,0 +1,16 @@
+---
+- name: Check if oh-my-zsh is installed
+  ansible.builtin.stat:
+    path: "{{ user_home }}/.oh-my-zsh"
+  register: omz_stat
+
+- name: Install oh-my-zsh (unattended)
+  when: not omz_stat.stat.exists
+  ansible.builtin.shell: |
+    sh -c "$(curl -fsSL {{ ohmyzsh_install_url }})" "" --unattended
+  args:
+    executable: /bin/bash
+    creates: "{{ user_home }}/.oh-my-zsh"
+  environment:
+    RUNZSH: "no"
+    CHSH: "no"

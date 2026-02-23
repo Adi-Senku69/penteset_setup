@@ -1,0 +1,31 @@
+---
+# Global variables shared across all roles
+
+user_home: "{{ ansible_env.HOME }}"
+current_user: "{{ ansible_env.USER }}"
+cargo_bin: "{{ ansible_env.HOME }}/.cargo/bin"
+local_bin: "{{ ansible_env.HOME }}/.local/bin"
+
+jetbrains_nerd_font_version: "v3.4.0"
+jetbrains_nerd_font_url: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ jetbrains_nerd_font_version }}/JetBrainsMono.zip"
+
+alacritty_config_repo: "https://github.com/Adi-Senku69/alacritty_conf.git"
+nvim_config_repo: "https://bright-marginally-barnacle.ngrok-free.app/adi/nvim.git"
+
+ohmyzsh_install_url: "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+zsh_custom: "{{ ansible_env.HOME }}/.oh-my-zsh/custom"
+
+# Release versions — bump these to upgrade
+yazi_version: "v26.1.22"
+zellij_version: "v0.43.1"
+
+yazi_url: "https://github.com/sxyazi/yazi/releases/download/{{ yazi_version }}/yazi-x86_64-unknown-linux-musl.zip"
+zellij_url: "https://github.com/zellij-org/zellij/releases/download/{{ zellij_version }}/zellij-x86_64-unknown-linux-musl.tar.gz"
+
+zsh_plugins:
+  - name: zsh-autosuggestions
+    repo: "https://github.com/zsh-users/zsh-autosuggestions"
+  - name: zsh-syntax-highlighting
+    repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+  - name: autoswitch_virtualenv
+    repo: "https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git"

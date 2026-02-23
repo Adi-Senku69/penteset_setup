@@ -1,0 +1,35 @@
+---
+- name: Check if feroxbuster is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/feroxbuster"
+  register: feroxbuster_stat
+
+- name: Get latest feroxbuster release info
+  when: not feroxbuster_stat.stat.exists
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/epi052/feroxbuster/releases/latest"
+    return_content: true
+  register: feroxbuster_release
+
+- name: Download feroxbuster binary
+  when: not feroxbuster_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/epi052/feroxbuster/releases/download/{{ feroxbuster_release.json.tag_name }}/x86_64-linux-feroxbuster.zip"
+    dest: "/tmp/feroxbuster.zip"
+    mode: "0644"
+
+- name: Unzip feroxbuster to ~/.local/bin
+  when: not feroxbuster_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/feroxbuster.zip
+    dest: "{{ local_bin }}"
+    include:
+      - feroxbuster
+    remote_src: true
+    mode: "0755"
+
+- name: Clean up feroxbuster zip
+  when: not feroxbuster_stat.stat.exists
+  ansible.builtin.file:
+    path: /tmp/feroxbuster.zip
+    state: absent

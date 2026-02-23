@@ -1,0 +1,50 @@
+---
+- name: Check if yazi is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/yazi"
+  register: yazi_stat
+
+- name: Create ~/.local/bin directory
+  ansible.builtin.file:
+    path: "{{ local_bin }}"
+    state: directory
+    mode: "0755"
+
+- name: Download yazi release archive
+  when: not yazi_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "{{ yazi_url }}"
+    dest: "/tmp/yazi.zip"
+    mode: "0644"
+
+- name: Unzip yazi archive
+  when: not yazi_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/yazi.zip
+    dest: /tmp
+    remote_src: true
+
+- name: Install yazi binary to ~/.local/bin
+  when: not yazi_stat.stat.exists
+  ansible.builtin.copy:
+    src: /tmp/yazi-x86_64-unknown-linux-musl/yazi
+    dest: "{{ local_bin }}/yazi"
+    mode: "0755"
+    remote_src: true
+
+- name: Install ya (yazi-cli) binary to ~/.local/bin
+  when: not yazi_stat.stat.exists
+  ansible.builtin.copy:
+    src: /tmp/yazi-x86_64-unknown-linux-musl/ya
+    dest: "{{ local_bin }}/ya"
+    mode: "0755"
+    remote_src: true
+
+- name: Clean up yazi temp files
+  when: not yazi_stat.stat.exists
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /tmp/yazi.zip
+    - /tmp/yazi-x86_64-unknown-linux-musl

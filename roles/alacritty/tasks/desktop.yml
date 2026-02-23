@@ -1,0 +1,22 @@
+---
+- name: Ensure local applications directory exists
+  ansible.builtin.file:
+    path: "{{ user_home }}/.local/share/applications"
+    state: directory
+    mode: "0755"
+
+- name: Create alacritty .desktop entry
+  ansible.builtin.copy:
+    dest: "{{ user_home }}/.local/share/applications/alacritty.desktop"
+    mode: "0755"
+    content: |
+      [Desktop Entry]
+      Type=Application
+      Name=Alacritty
+      GenericName=Terminal
+      Comment=A fast, cross-platform, OpenGL terminal emulator
+      Exec=alacritty
+      Icon=alacritty
+      Categories=System;TerminalEmulator;
+      Terminal=false
+      StartupNotify=true

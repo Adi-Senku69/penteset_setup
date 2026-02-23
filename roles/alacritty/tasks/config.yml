@@ -1,0 +1,21 @@
+---
+- name: Check if alacritty config already exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/.config/alacritty"
+  register: alacritty_config_stat
+
+# - name: Remove existing alacritty config (ensure clean clone)
+#   when: alacritty_config_stat.stat.exists
+#   ansible.builtin.file:
+#     path: "{{ user_home }}/.config/alacritty"
+#     state: absent
+
+- name: Clone alacritty config from repo
+  ansible.builtin.git:
+    repo: "{{ alacritty_config_repo }}"
+    dest: "{{ user_home }}/.config/alacritty"
+    depth: 1
+  environment:
+    GIT_CONFIG_COUNT: "1"
+    GIT_CONFIG_KEY_0: "http.extraHeader"
+    GIT_CONFIG_VALUE_0: "ngrok-skip-browser-warning: true"

@@ -1,0 +1,12 @@
+---
+- name: Check if powerlevel10k theme is installed
+  ansible.builtin.stat:
+    path: "{{ zsh_custom }}/themes/powerlevel10k"
+  register: p10k_stat
+
+- name: Clone powerlevel10k theme
+  when: not p10k_stat.stat.exists
+  ansible.builtin.git:
+    repo: "https://github.com/romkatv/powerlevel10k.git"
+    dest: "{{ zsh_custom }}/themes/powerlevel10k"
+    depth: 1

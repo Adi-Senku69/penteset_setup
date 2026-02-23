@@ -1,0 +1,52 @@
+---
+- name: Check if neovim is installed
+  ansible.builtin.stat:
+    path: /opt/nvim-linux-x86_64
+  register: nvim_stat
+
+- name: Download neovim tarball
+  when: not nvim_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+    dest: "/tmp/nvim-linux-x86_64.tar.gz"
+    mode: "0644"
+
+- name: Remove old neovim install
+  become: true
+  when: not nvim_stat.stat.exists
+  ansible.builtin.file:
+    path: /opt/nvim-linux-x86_64
+    state: absent
+
+- name: Extract neovim to /opt
+  become: true
+  when: not nvim_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/nvim-linux-x86_64.tar.gz
+    dest: /opt
+    remote_src: true
+
+- name: Symlink nvim binary to ~/.local/bin
+  ansible.builtin.file:
+    src: /opt/nvim-linux-x86_64/bin/nvim
+    dest: "{{ local_bin }}/nvim"
+    state: link
+    force: true
+
+- name: Remove neovim tarball
+  when: not nvim_stat.stat.exists
+  ansible.builtin.file:
+    path: /tmp/nvim-linux-x86_64.tar.gz
+    state: absent
+
+- name: Check if nvim config exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/.config/nvim"
+  register: nvim_config_stat
+
+- name: Clone neovim config from self-hosted repo
+  when: not nvim_config_stat.stat.exists
+  ansible.builtin.git:
+    repo: "{{ nvim_config_repo }}"
+    dest: "{{ user_home }}/.config/nvim"
+    depth: 1

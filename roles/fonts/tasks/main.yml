@@ -1,0 +1,39 @@
+---
+- name: Check if JetBrains Nerd Font is already installed
+  ansible.builtin.find:
+    paths: "{{ user_home }}/.local/share/fonts"
+    patterns: "*JetBrains*"
+    recurse: true
+  register: font_check
+
+- name: Create fonts directory
+  when: font_check.matched == 0
+  ansible.builtin.file:
+    path: "{{ user_home }}/.local/share/fonts"
+    state: directory
+    mode: "0755"
+
+- name: Download JetBrainsMono Nerd Font
+  when: font_check.matched == 0
+  ansible.builtin.get_url:
+    url: "{{ jetbrains_nerd_font_url }}"
+    dest: "/tmp/JetBrainsMono.zip"
+    mode: "0644"
+
+- name: Unzip JetBrainsMono Nerd Font
+  when: font_check.matched == 0
+  ansible.builtin.unarchive:
+    src: "/tmp/JetBrainsMono.zip"
+    dest: "{{ user_home }}/.local/share/fonts"
+    remote_src: true
+
+- name: Remove font zip archive
+  when: font_check.matched == 0
+  ansible.builtin.file:
+    path: "/tmp/JetBrainsMono.zip"
+    state: absent
+
+- name: Rebuild font cache
+  when: font_check.matched == 0
+  ansible.builtin.command: fc-cache -f -v
+  changed_when: true

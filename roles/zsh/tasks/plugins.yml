@@ -1,0 +1,21 @@
+---
+- name: Ensure zsh plugins are installed and up to date
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ zsh_custom }}/plugins/{{ item.name }}"
+    depth: 1
+    update: true
+  loop: "{{ zsh_plugins }}"
+
+- name: Copy aliases.zsh to oh-my-zsh custom folder
+  ansible.builtin.copy:
+    src: "{{ playbook_dir }}/aliases.zsh"
+    dest: "{{ zsh_custom }}/aliases.zsh"
+    mode: "0644"
+
+- name: Deploy .zshrc from template
+  ansible.builtin.template:
+    src: zshrc.j2
+    dest: "{{ user_home }}/.zshrc"
+    mode: "0644"
+    backup: true

@@ -1,0 +1,40 @@
+---
+- name: Check if lazygit is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/lazygit"
+  register: lazygit_stat
+
+- name: Get latest lazygit release version
+  when: not lazygit_stat.stat.exists
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/jesseduffield/lazygit/releases/latest"
+    return_content: true
+  register: lazygit_release
+
+- name: Set lazygit version fact
+  when: not lazygit_stat.stat.exists
+  ansible.builtin.set_fact:
+    lazygit_version: "{{ lazygit_release.json.tag_name | regex_replace('^v', '') }}"
+
+- name: Download lazygit tarball
+  when: not lazygit_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/jesseduffield/lazygit/releases/download/v{{ lazygit_version }}/lazygit_{{ lazygit_version }}_Linux_x86_64.tar.gz"
+    dest: "/tmp/lazygit.tar.gz"
+    mode: "0644"
+
+- name: Extract lazygit binary to ~/.local/bin
+  when: not lazygit_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/lazygit.tar.gz
+    dest: "{{ local_bin }}"
+    include:
+      - lazygit
+    remote_src: true
+    mode: "0755"
+
+- name: Clean up lazygit tarball
+  when: not lazygit_stat.stat.exists
+  ansible.builtin.file:
+    path: /tmp/lazygit.tar.gz
+    state: absent

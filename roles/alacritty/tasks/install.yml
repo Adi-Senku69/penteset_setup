@@ -1,0 +1,41 @@
+---
+- name: Check if alacritty is installed
+  ansible.builtin.command: which alacritty
+  register: alacritty_check
+  changed_when: false
+  failed_when: false
+
+- name: Install alacritty via apt
+  become: true
+  when: alacritty_check.rc != 0
+  ansible.builtin.apt:
+    name: alacritty
+    state: present
+  register: alacritty_apt
+  ignore_errors: true
+
+- name: Install alacritty via cargo (fallback if not in apt repos)
+  when:
+    - alacritty_check.rc != 0
+    - alacritty_apt is defined and alacritty_apt.failed
+  ansible.builtin.shell: |
+    source {{ user_home }}/.cargo/env
+    cargo install alacritty
+  args:
+    executable: /bin/bash
+    creates: "{{ cargo_bin }}/alacritty"
+
+- name: Set alacritty as default terminal (update-alternatives install)
+  become: true
+  when: alacritty_check.rc != 0
+  ansible.builtin.command: >
+    update-alternatives --install /usr/bin/x-terminal-emulator
+    x-terminal-emulator /usr/bin/alacritty 50
+  changed_when: true
+
+- name: Set alacritty as default terminal (update-alternatives set)
+  become: true
+  when: alacritty_check.rc != 0
+  ansible.builtin.command: >
+    update-alternatives --set x-terminal-emulator /usr/bin/alacritty
+  changed_when: true
