@@ -18,6 +18,10 @@
     - { name: odat, repo: "https://github.com/quentinhardy/odat.git" }
     - { name: PEASS-ng, repo: "https://github.com/peass-ng/PEASS-ng.git" }
     - {
+        name: KeyTabExtract,
+        repo: "https://github.com/sosdave/KeyTabExtract.git",
+      }
+    - {
         name: FinalRecon,
         repo: "https://github.com/thewhiteh4t/FinalRecon.git",
       }
