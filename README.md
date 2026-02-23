@@ -39,7 +39,31 @@ Edit `group_vars/all.yml` to customize:
 | `yazi`         | Downloads pre-built binary from GitHub releases to ~/.local/bin                     |
 | `zellij`       | Downloads pre-built binary from GitHub releases to ~/.local/bin, dumps default config |
 | `lazygit`      | Downloads latest release binary from GitHub to ~/.local/bin                        |
-| `custom_tools` | Clones pentest tools to ~/opt, installs rustscan (.deb) and feroxbuster (binary)   |
+| `custom_tools` | Clones pentest tools to ~/opt |
+
+# 🛠️ Custom Pentest Tools
+
+A collection of custom penetration testing tools included in this environment.
+
+---
+
+## Tools
+
+| Tool | Category | Description |
+|------|----------|-------------|
+| **FinalRecon** | Reconnaissance | All-in-one web reconnaissance tool for gathering information about a target |
+| **LaZagne** | Credential Harvesting | Retrieves stored passwords from local applications |
+| **PCredz** | Credential Harvesting | Extracts credentials from network captures (pcap files or live interfaces) |
+| **PEASS-ng** | Privilege Escalation | Privilege escalation awesome scripts suite (LinPEAS/WinPEAS) for local enumeration |
+| **enum4linux-ng** | Enumeration | SMB/Samba enumeration tool — next-generation rewrite of enum4linux |
+| **firefox_decrypt** | Credential Harvesting | Extracts credentials stored in Mozilla Firefox profiles |
+| **impacket** | Exploitation / Lateral Movement | Python library for working with network protocols; includes tools like psexec, secretsdump, etc. |
+| **ligolo-agent** | Tunneling / Pivoting | Agent component of the Ligolo-ng tunneling tool for network pivoting |
+| **mimikatz** | Credential Harvesting | Post-exploitation tool for extracting plaintext passwords, hashes, and Kerberos tickets from Windows |
+| **odat** | Exploitation | Oracle Database Attacking Tool for testing Oracle DB instances |
+| **username-anarchy** | Reconnaissance | Generates username permutations from a target's name for use in attacks |
+
+
 
 ## Notes
 
