@@ -37,6 +37,24 @@
       - flameshot
     state: present
 
+- name: Check display server type
+  ansible.builtin.set_fact:
+    is_wayland: "{{ ansible_env.WAYLAND_DISPLAY is defined or ansible_env.XDG_SESSION_TYPE == 'wayland' }}"
+
+- name: Install freerdp for Wayland
+  become: true
+  when: is_wayland
+  ansible.builtin.apt:
+    name: freerdp3-wayland
+    state: present
+
+- name: Install freerdp for X11
+  become: true
+  when: not is_wayland
+  ansible.builtin.apt:
+    name: freerdp3-x11
+    state: present
+
 - name: Autoremove unused packages
   become: true
   ansible.builtin.apt:
