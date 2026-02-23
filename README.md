@@ -62,6 +62,8 @@ A collection of custom penetration testing tools included in this environment.
 | **mimikatz** | Credential Harvesting | Post-exploitation tool for extracting plaintext passwords, hashes, and Kerberos tickets from Windows |
 | **odat** | Exploitation | Oracle Database Attacking Tool for testing Oracle DB instances |
 | **username-anarchy** | Reconnaissance | Generates username permutations from a target's name for use in attacks |
+| **KeytabExtractor** | Exploitation | Extracts hashes from keytab files |
+| **Linikatz** | Exploitation | Linux version of mimikatz |
 
 
 
