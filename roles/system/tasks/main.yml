@@ -41,3 +41,9 @@
   become: true
   ansible.builtin.apt:
     autoremove: true
+
+- name: Ensure ~/.local/bin exists
+  ansible.builtin.file:
+    path: "{{ local_bin }}"
+    state: directory
+    mode: "0755"
