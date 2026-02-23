@@ -1,0 +1,57 @@
+---
+- name: Check if ligolo-ng proxy is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/proxy"
+  register: ligolo_stat
+
+- name: Get latest ligolo-ng release info
+  when: not ligolo_stat.stat.exists
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/nicocha30/ligolo-ng/releases/latest"
+    return_content: true
+  register: ligolo_release
+
+- name: Download ligolo-ng proxy binary
+  when: not ligolo_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/nicocha30/ligolo-ng/releases/download/{{ ligolo_release.json.tag_name }}/ligolo-ng_proxy_{{ ligolo_release.json.tag_name | regex_replace('^v', '') }}_linux_amd64.tar.gz"
+    dest: "/tmp/ligolo-proxy.tar.gz"
+    mode: "0644"
+
+- name: Download ligolo-ng agent binary
+  when: not ligolo_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/nicocha30/ligolo-ng/releases/download/{{ ligolo_release.json.tag_name }}/ligolo-ng_agent_{{ ligolo_release.json.tag_name | regex_replace('^v', '') }}_linux_amd64.tar.gz"
+    dest: "/tmp/ligolo-agent.tar.gz"
+    mode: "0644"
+
+- name: Extract ligolo-ng proxy to ~/.local/bin
+  when: not ligolo_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/ligolo-proxy.tar.gz
+    dest: "{{ local_bin }}"
+    remote_src: true
+    mode: "0755"
+
+- name: Extract ligolo-ng agent to ~/.local/bin
+  when: not ligolo_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/ligolo-agent.tar.gz
+    dest: "{{ local_bin }}"
+    remote_src: true
+    mode: "0755"
+
+- name: Copy the agent to ~/opt directory
+  when: not ligolo_stat.stat.exists
+  ansible.builtin.copy:
+    src: "/tmp/ligolo-agent.tar.gz"
+    dest: "{{ user_home }}/opt/"
+
+- name: Clean up ligolo-ng tarballs
+  when: not ligolo_stat.stat.exists
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /tmp/ligolo-proxy.tar.gz
+    - /tmp/ligolo-agent.tar.gz

@@ -1,0 +1,50 @@
+---
+- name: Check if go is installed
+  ansible.builtin.stat:
+    path: /usr/local/go
+  register: go_stat
+
+- name: Get latest Go version
+  when: not go_stat.stat.exists
+  ansible.builtin.uri:
+    url: "https://go.dev/dl/?mode=json"
+    return_content: true
+  register: go_release
+
+- name: Set go version fact
+  when: not go_stat.stat.exists
+  ansible.builtin.set_fact:
+    go_version: "{{ go_release.json[0].version }}"
+
+- name: Download Go tarball
+  when: not go_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://go.dev/dl/{{ go_version }}.linux-amd64.tar.gz"
+    dest: "/tmp/go.tar.gz"
+    mode: "0644"
+
+- name: Remove old Go install if present
+  become: true
+  ansible.builtin.file:
+    path: /usr/local/go
+    state: absent
+
+- name: Extract Go to /usr/local
+  become: true
+  when: not go_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/go.tar.gz
+    dest: /usr/local
+    remote_src: true
+
+- name: Clean up Go tarball
+  when: not go_stat.stat.exists
+  ansible.builtin.file:
+    path: /tmp/go.tar.gz
+    state: absent
+
+- name: Add Go to PATH in .zshrc
+  ansible.builtin.lineinfile:
+    path: "{{ user_home }}/.zshrc"
+    line: 'export PATH="/usr/local/go/bin:$HOME/go/bin:$PATH"'
+    state: present
