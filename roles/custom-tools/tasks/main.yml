@@ -3,3 +3,4 @@
 - import_tasks: clone.yml
 - import_tasks: rustscan.yml
 - import_tasks: feroxbuster.yml
+- import_tasks: tldr.yml
