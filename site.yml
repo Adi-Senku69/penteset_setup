@@ -7,6 +7,12 @@
   connection: local
   become: false
 
+  vars_prompt:
+    - name: install_neovim
+      prompt: "Do you want to install and configure neovim? (yes/no)"
+      private: no
+      default: "yes"
+
   roles:
     - system
     - rust
@@ -14,7 +20,8 @@
     - alacritty
     - zsh
     - powerlevel10k
-    - neovim
+    - role: neovim
+      when: install_neovim == 'yes'
     - uv
     - yazi
     - zellij

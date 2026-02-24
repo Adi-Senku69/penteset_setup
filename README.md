@@ -64,6 +64,7 @@ A collection of custom penetration testing tools included in this environment.
 | **username-anarchy** | Reconnaissance | Generates username permutations from a target's name for use in attacks |
 | **KeytabExtractor** | Exploitation | Extracts hashes from keytab files |
 | **Linikatz** | Exploitation | Linux version of mimikatz |
+| **PKINIT Tools** | Exploitation | For pass the certificate attack|
 
 
 
