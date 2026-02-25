@@ -8,12 +8,19 @@ Automated setup for a Parrot OS pentest environment using Ansible roles.
 # Install Ansible
 sudo apt install ansible -y
 
+# List all the tools that are going to be installed
+ansible-playbook site.yml --list-tags
+
 # Run the full playbook
 ansible-playbook site.yml --ask-become-pass
 
 # Run a single role only
 ansible-playbook site.yml --ask-become-pass --tags neovim
 ansible-playbook site.yml --ask-become-pass --tags zsh,powerlevel10k
+
+# Skip installation of certian modules
+ansible-playbook site.yml --ask-become-pass --skip-tags neovim
+ansible-playbook site.yml --ask-become-pass --skip-tags neovim,zsh --tags zellij
 ```
 
 ## Configuration

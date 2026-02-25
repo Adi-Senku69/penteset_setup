@@ -7,30 +7,43 @@
   connection: local
   become: false
 
-  vars_prompt:
-    - name: install_neovim
-      prompt: "Do you want to install and configure neovim? (yes/no)"
-      private: no
-      default: "yes"
+  # vars_prompt:
+  #   - name: install_neovim
+  #     prompt: "Do you want to install and configure neovim? (yes/no)"
+  #     private: no
+  #     default: "yes"
 
   roles:
-    - system
-    - rust
-    - fonts
-    - alacritty
-    - zsh
-    - powerlevel10k
+    - role: system
+      tags: system
+    - role: rust
+      tags: rust
+    - role: fonts
+      tags: fonts
+    - role: alacritty
+      tags: alacritty
+    - role: zsh
+      tags: zsh
+    - role: powerlevel10k
+      tags: powerlevel10k
     - role: neovim
+      tags: neovim
       when: install_neovim == 'yes'
-    - uv
-    - yazi
-    - zellij
-    - lazygit
-    - custom-tools
+    - role: uv
+      tags: uv
+    - role: yazi
+      tags: yazi
+    - role: zellij
+      tags: zellij
+    - role: lazygit
+      tags: lazygit
+    - role: custom-tools
+      tags: custom-tools
 
 - name: Update local database
   hosts: localhost
   become: true
+  tags: updatedb
   tasks:
     - name: Run updatedb
       ansible.builtin.command: updatedb
