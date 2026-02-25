@@ -35,6 +35,7 @@
       - libc6-dev
       - openvpn
       - flameshot
+      - exploitdb
     state: present
 
 - name: Check display server type
