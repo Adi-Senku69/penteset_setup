@@ -39,9 +39,6 @@
       - locate
     state: present
 
-- name: update local database
-  become: true
-  ansible.builtin.command: updatedb
 
 - name: Check display server type
   ansible.builtin.set_fact:

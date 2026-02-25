@@ -27,3 +27,10 @@
     - zellij
     - lazygit
     - custom-tools
+
+- name: Update local database
+  hosts: localhost
+  become: true
+  tasks:
+    - name: Run updatedb
+      ansible.builtin.command: updatedb
