@@ -28,7 +28,7 @@
       tags: powerlevel10k
     - role: neovim
       tags: neovim
-      when: install_neovim == 'yes'
+      # when: install_neovim == 'yes'
     - role: uv
       tags: uv
     - role: yazi
