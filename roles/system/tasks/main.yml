@@ -37,8 +37,9 @@
       - flameshot
       - exploitdb
       - locate
+      - krb5-user
+      - ftp
     state: present
-
 
 - name: Check display server type
   ansible.builtin.set_fact:
