@@ -9,6 +9,7 @@ pentest_tools:
   - { name: PEASS-ng, repo: "https://github.com/peass-ng/PEASS-ng.git" }
   - { name: PKINITtools, repo: "https://github.com/dirkjanm/PKINITtools.git" }
   - { name: Pywhisker, repo: "https://github.com/ShutdownRepo/pywhisker.git" }
+  - { name: Subbrute, repo: "https://github.com/TheRook/subbrute.git" }
   - { name: Certipy, repo: "https://github.com/ly4k/Certipy.git" }
   - {
       name: Invoke-TheHash,
