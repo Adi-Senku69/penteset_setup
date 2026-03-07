@@ -46,15 +46,15 @@ Edit `group_vars/all.yml` to customize:
 | `yazi`         | Downloads pre-built binary from GitHub releases to ~/.local/bin                     |
 | `zellij`       | Downloads pre-built binary from GitHub releases to ~/.local/bin, dumps default config |
 | `lazygit`      | Downloads latest release binary from GitHub to ~/.local/bin                        |
-| `custom_tools` | Clones pentest tools to ~/opt |
+| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, and ligolo-ng (proxy + agent) binaries |
 
-# 🛠️ Custom Pentest Tools
+# Custom Pentest Tools
 
 A collection of custom penetration testing tools included in this environment.
 
 ---
 
-## Tools
+## Cloned Tools
 
 | Tool | Category | Description |
 |------|----------|-------------|
@@ -65,13 +65,28 @@ A collection of custom penetration testing tools included in this environment.
 | **enum4linux-ng** | Enumeration | SMB/Samba enumeration tool — next-generation rewrite of enum4linux |
 | **firefox_decrypt** | Credential Harvesting | Extracts credentials stored in Mozilla Firefox profiles |
 | **impacket** | Exploitation / Lateral Movement | Python library for working with network protocols; includes tools like psexec, secretsdump, etc. |
-| **ligolo-agent** | Tunneling / Pivoting | Agent component of the Ligolo-ng tunneling tool for network pivoting |
 | **mimikatz** | Credential Harvesting | Post-exploitation tool for extracting plaintext passwords, hashes, and Kerberos tickets from Windows |
 | **odat** | Exploitation | Oracle Database Attacking Tool for testing Oracle DB instances |
 | **username-anarchy** | Reconnaissance | Generates username permutations from a target's name for use in attacks |
-| **KeytabExtractor** | Exploitation | Extracts hashes from keytab files |
-| **Linikatz** | Exploitation | Linux version of mimikatz |
-| **PKINIT Tools** | Exploitation | For pass the certificate attack|
+| **KeyTabExtract** | Exploitation | Extracts hashes from keytab files |
+| **Linikatz** | Exploitation | Linux version of mimikatz for credential extraction on Linux |
+| **PKINITtools** | Exploitation | Tools for pass-the-certificate attacks via PKINIT |
+| **Pywhisker** | Exploitation | Python tool for Shadow Credentials attacks via msDS-KeyCredentialLink |
+| **Certipy** | Exploitation | Tool for enumerating and abusing Active Directory Certificate Services |
+| **Invoke-TheHash** | Exploitation | PowerShell pass-the-hash attack tools using .NET invoke |
+| **KRBRelayX** | Exploitation | Kerberos relaying and unconstrained delegation abuse toolkit |
+
+## Binary Tools
+
+| Tool | Category | Description |
+|------|----------|-------------|
+| **RustScan** | Reconnaissance | Fast port scanner; pipes results into nmap |
+| **feroxbuster** | Reconnaissance | Fast content discovery / directory brute-forcing tool |
+| **subfinder** | Reconnaissance | Passive subdomain enumeration tool |
+| **tealdeer** | Utility | Fast tldr client for simplified man pages (installed via cargo) |
+| **ligolo-ng proxy** | Tunneling / Pivoting | Attacker-side proxy for ligolo-ng tunneling |
+| **ligolo-ng agent** | Tunneling / Pivoting | Target-side agent for ligolo-ng tunneling (also copied to ~/opt) |
+| **Go** | Runtime | Go language runtime; required by several tools and added to PATH |
 
 
 

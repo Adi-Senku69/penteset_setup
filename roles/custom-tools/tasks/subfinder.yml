@@ -1,0 +1,35 @@
+---
+- name: Check if subfinder is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/subfinder"
+  register: subfinder_stat
+
+- name: Get latest subfinder release info
+  when: not subfinder_stat.stat.exists
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/projectdiscovery/subfinder/releases/latest"
+    return_content: true
+  register: subfinder_release
+
+- name: Download subfinder binary
+  when: not subfinder_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/projectdiscovery/subfinder/releases/download/{{ subfinder_release.json.tag_name }}/subfinder_{{ subfinder_release.json.tag_name | regex_replace('^v', '') }}_linux_amd64.zip"
+    dest: "/tmp/subfinder.zip"
+    mode: "0644"
+
+- name: Extract subfinder to ~/.local/bin
+  when: not subfinder_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/subfinder.zip
+    dest: "{{ local_bin }}"
+    remote_src: true
+    include:
+      - subfinder
+    mode: "0755"
+
+- name: Clean up subfinder zip
+  when: not subfinder_stat.stat.exists
+  ansible.builtin.file:
+    path: /tmp/subfinder.zip
+    state: absent

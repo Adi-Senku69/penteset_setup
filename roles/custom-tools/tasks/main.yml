@@ -6,3 +6,4 @@
 - import_tasks: tldr.yml
 - import_tasks: golang.yml
 - import_tasks: ligolo.yml
+- import_tasks: subfinder.yml
