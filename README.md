@@ -72,6 +72,7 @@ A collection of custom penetration testing tools included in this environment.
 | **Linikatz** | Exploitation | Linux version of mimikatz for credential extraction on Linux |
 | **PKINITtools** | Exploitation | Tools for pass-the-certificate attacks via PKINIT |
 | **Pywhisker** | Exploitation | Python tool for Shadow Credentials attacks via msDS-KeyCredentialLink |
+| **smtp-enum** | Enumeration | SMTP user enumeration tool for discovering valid usernames via VRFY, EXPN, and RCPT TO commands |
 | **Subbrute** | Reconnaissance | Fast subdomain brute-forcing tool using open resolvers |
 | **Certipy** | Exploitation | Tool for enumerating and abusing Active Directory Certificate Services |
 | **Invoke-TheHash** | Exploitation | PowerShell pass-the-hash attack tools using .NET invoke |

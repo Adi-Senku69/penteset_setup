@@ -10,6 +10,10 @@ pentest_tools:
   - { name: PKINITtools, repo: "https://github.com/dirkjanm/PKINITtools.git" }
   - { name: Pywhisker, repo: "https://github.com/ShutdownRepo/pywhisker.git" }
   - { name: Subbrute, repo: "https://github.com/TheRook/subbrute.git" }
+  - {
+      name: smtp-enum,
+      repo: "https://github.com/pentestmonkey/smtp-user-enum.git",
+    }
   - { name: Certipy, repo: "https://github.com/ly4k/Certipy.git" }
   - {
       name: Invoke-TheHash,
