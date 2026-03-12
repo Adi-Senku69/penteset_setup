@@ -46,7 +46,7 @@ Edit `group_vars/all.yml` to customize:
 | `yazi`         | Downloads pre-built binary from GitHub releases to ~/.local/bin                     |
 | `zellij`       | Downloads pre-built binary from GitHub releases to ~/.local/bin, dumps default config |
 | `lazygit`      | Downloads latest release binary from GitHub to ~/.local/bin                        |
-| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, and ligolo-ng (proxy + agent) binaries |
+| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, ligolo-ng (proxy + agent) binaries, and dnscat2 (server + client built from source) |
 
 # Custom Pentest Tools
 
@@ -77,6 +77,8 @@ A collection of custom penetration testing tools included in this environment.
 | **Certipy** | Exploitation | Tool for enumerating and abusing Active Directory Certificate Services |
 | **Invoke-TheHash** | Exploitation | PowerShell pass-the-hash attack tools using .NET invoke |
 | **KRBRelayX** | Exploitation | Kerberos relaying and unconstrained delegation abuse toolkit |
+| **dnscat2** | C2 / Tunneling | DNS-based C2 and tunneling tool; server (Ruby) and client (C) built from source |
+| **dnscat2-powershell** | C2 / Tunneling | PowerShell client for dnscat2; connects Windows targets back to a dnscat2 server |
 
 ## Binary Tools
 

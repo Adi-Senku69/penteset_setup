@@ -1,0 +1,36 @@
+---
+- name: Check if dnscat2 server gem dependencies are installed
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/dnscat2/server/Gemfile.lock"
+  register: dnscat2_stat
+
+- name: Install dnscat2 system dependencies
+  become: true
+  when: not dnscat2_stat.stat.exists
+  ansible.builtin.apt:
+    name:
+      - ruby
+      - ruby-dev
+      - libssl-dev
+      - make
+      - gcc
+    state: present
+    update_cache: yes
+
+- name: Install dnscat2 server Ruby gems
+  become: true
+  when: not dnscat2_stat.stat.exists
+  ansible.builtin.command:
+    cmd: bundle install
+    chdir: "{{ user_home }}/opt/dnscat2/server"
+
+- name: Check if dnscat2 client binary exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/dnscat2/client/dnscat"
+  register: dnscat2_client_stat
+
+- name: Build dnscat2 client
+  when: not dnscat2_client_stat.stat.exists
+  ansible.builtin.command:
+    cmd: make
+    chdir: "{{ user_home }}/opt/dnscat2/client"
