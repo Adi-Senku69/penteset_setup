@@ -46,7 +46,7 @@ Edit `group_vars/all.yml` to customize:
 | `yazi`         | Downloads pre-built binary from GitHub releases to ~/.local/bin                     |
 | `zellij`       | Downloads pre-built binary from GitHub releases to ~/.local/bin, dumps default config |
 | `lazygit`      | Downloads latest release binary from GitHub to ~/.local/bin                        |
-| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, ligolo-ng (proxy + agent), chisel (Linux + Windows), mimikatz, Rubeus, and dnscat2 (server + client built from source) |
+| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, ligolo-ng (proxy + agent), chisel (Linux + Windows), mimikatz, Rubeus, kerbrute (Linux + Windows), and dnscat2 (server + client built from source) |
 
 # Custom Pentest Tools
 
@@ -92,6 +92,7 @@ A collection of custom penetration testing tools included in this environment.
 | **chisel** | Tunneling / Pivoting | Fast TCP/UDP tunnel over HTTP; both Linux and Windows binaries decompressed to ~/opt/chisel/ |
 | **mimikatz** | Credential Harvesting | Post-exploitation tool for extracting plaintext passwords, hashes, and Kerberos tickets from Windows |
 | **Rubeus** | Exploitation / Kerberos | C# toolset for raw Kerberos interaction and abuse |
+| **kerbrute** | Exploitation / Kerberos | Fast Kerberos brute-forcing and user enumeration tool |
 | **Go** | Runtime | Go language runtime; required by several tools and added to PATH |
 
 

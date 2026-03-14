@@ -8,6 +8,7 @@
 - import_tasks: ligolo.yml
 - import_tasks: subfinder.yml
 - import_tasks: dnscat2.yml
+- import_tasks: kerbrute.yml
 - import_tasks: mimikatz.yml
 - import_tasks: rubeus.yml
 - import_tasks: chisel.yml

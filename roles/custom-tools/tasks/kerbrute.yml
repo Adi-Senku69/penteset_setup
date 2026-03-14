@@ -1,0 +1,42 @@
+---
+- name: Get latest kerbrute release info
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/ropnop/kerbrute/releases/latest"
+    return_content: true
+  register: kerbrute_release
+
+- name: Ensure ~/opt/kerbrute directory exists
+  ansible.builtin.file:
+    path: "{{ user_home }}/opt/kerbrute"
+    state: directory
+    mode: "0755"
+
+- name: Check if kerbrute Linux binary exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/kerbrute/kerbrute_linux_amd64"
+  register: kerbrute_linux_stat
+
+- name: Download kerbrute Linux binary
+  when: not kerbrute_linux_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "{{ kerbrute_release.json.assets | selectattr('name', 'equalto', 'kerbrute_linux_amd64') | map(attribute='browser_download_url') | first }}"
+    dest: "{{ user_home }}/opt/kerbrute/kerbrute_linux_amd64"
+    mode: "0755"
+
+- name: Check if kerbrute Windows binary exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/kerbrute/kerbrute_windows_amd64.exe"
+  register: kerbrute_win_stat
+
+- name: Download kerbrute Windows binary
+  when: not kerbrute_win_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "{{ kerbrute_release.json.assets | selectattr('name', 'equalto', 'kerbrute_windows_amd64.exe') | map(attribute='browser_download_url') | first }}"
+    dest: "{{ user_home }}/opt/kerbrute/kerbrute_windows_amd64.exe"
+    mode: "0755"
+
+- name: Symlink kerbrute Linux binary to ~/.local/bin
+  ansible.builtin.file:
+    src: "{{ user_home }}/opt/kerbrute/kerbrute_linux_amd64"
+    dest: "{{ local_bin }}/kerbrute"
+    state: link
