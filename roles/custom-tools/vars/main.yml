@@ -27,7 +27,6 @@ pentest_tools:
     }
   - { name: FinalRecon, repo: "https://github.com/thewhiteh4t/FinalRecon.git" }
   - { name: impacket, repo: "https://github.com/fortra/impacket.git" }
-  - { name: mimikatz, repo: "https://github.com/gentilkiwi/mimikatz.git" }
   - { name: PCredz, repo: "https://github.com/lgandx/PCredz.git" }
   - { name: KRBRelayX, repo: "https://github.com/dirkjanm/krbrelayx.git" }
   - {

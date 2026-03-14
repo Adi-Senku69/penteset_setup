@@ -46,7 +46,7 @@ Edit `group_vars/all.yml` to customize:
 | `yazi`         | Downloads pre-built binary from GitHub releases to ~/.local/bin                     |
 | `zellij`       | Downloads pre-built binary from GitHub releases to ~/.local/bin, dumps default config |
 | `lazygit`      | Downloads latest release binary from GitHub to ~/.local/bin                        |
-| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, ligolo-ng (proxy + agent) binaries, and dnscat2 (server + client built from source) |
+| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, ligolo-ng (proxy + agent), chisel (Linux + Windows), mimikatz, Rubeus, and dnscat2 (server + client built from source) |
 
 # Custom Pentest Tools
 
@@ -65,7 +65,6 @@ A collection of custom penetration testing tools included in this environment.
 | **enum4linux-ng** | Enumeration | SMB/Samba enumeration tool — next-generation rewrite of enum4linux |
 | **firefox_decrypt** | Credential Harvesting | Extracts credentials stored in Mozilla Firefox profiles |
 | **impacket** | Exploitation / Lateral Movement | Python library for working with network protocols; includes tools like psexec, secretsdump, etc. |
-| **mimikatz** | Credential Harvesting | Post-exploitation tool for extracting plaintext passwords, hashes, and Kerberos tickets from Windows |
 | **odat** | Exploitation | Oracle Database Attacking Tool for testing Oracle DB instances |
 | **username-anarchy** | Reconnaissance | Generates username permutations from a target's name for use in attacks |
 | **KeyTabExtract** | Exploitation | Extracts hashes from keytab files |
@@ -90,6 +89,9 @@ A collection of custom penetration testing tools included in this environment.
 | **tealdeer** | Utility | Fast tldr client for simplified man pages (installed via cargo) |
 | **ligolo-ng proxy** | Tunneling / Pivoting | Attacker-side proxy for ligolo-ng tunneling |
 | **ligolo-ng agent** | Tunneling / Pivoting | Target-side agent for ligolo-ng tunneling (also copied to ~/opt) |
+| **chisel** | Tunneling / Pivoting | Fast TCP/UDP tunnel over HTTP; both Linux and Windows binaries decompressed to ~/opt/chisel/ |
+| **mimikatz** | Credential Harvesting | Post-exploitation tool for extracting plaintext passwords, hashes, and Kerberos tickets from Windows |
+| **Rubeus** | Exploitation / Kerberos | C# toolset for raw Kerberos interaction and abuse |
 | **Go** | Runtime | Go language runtime; required by several tools and added to PATH |
 
 

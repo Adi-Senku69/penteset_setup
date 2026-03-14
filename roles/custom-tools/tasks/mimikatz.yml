@@ -1,0 +1,55 @@
+---
+- name: Get latest mimikatz release info
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/gentilkiwi/mimikatz/releases/latest"
+    return_content: true
+  register: mimikatz_release
+
+- name: Set mimikatz asset facts
+  ansible.builtin.set_fact:
+    mimikatz_zip: "{{ mimikatz_release.json.assets | selectattr('name', 'search', '\\.zip$') | first }}"
+    mimikatz_7z: "{{ mimikatz_release.json.assets | selectattr('name', 'search', '\\.7z$') | first }}"
+
+- name: Choose smaller mimikatz asset
+  ansible.builtin.set_fact:
+    mimikatz_url: "{{ (mimikatz_zip.size <= mimikatz_7z.size) | ternary(mimikatz_zip.browser_download_url, mimikatz_7z.browser_download_url) }}"
+    mimikatz_ext: "{{ (mimikatz_zip.size <= mimikatz_7z.size) | ternary('zip', '7z') }}"
+
+- name: Ensure ~/opt/mimikatz directory exists
+  ansible.builtin.file:
+    path: "{{ user_home }}/opt/mimikatz"
+    state: directory
+    mode: "0755"
+
+- name: Check if mimikatz is already extracted
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/mimikatz/x64/mimikatz.exe"
+  register: mimikatz_stat
+
+- name: Download mimikatz archive
+  when: not mimikatz_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "{{ mimikatz_url }}"
+    dest: "/tmp/mimikatz.{{ mimikatz_ext }}"
+    mode: "0644"
+
+- name: Extract mimikatz zip
+  when:
+    - not mimikatz_stat.stat.exists
+    - mimikatz_ext == 'zip'
+  ansible.builtin.unarchive:
+    src: "/tmp/mimikatz.zip"
+    dest: "{{ user_home }}/opt/mimikatz"
+    remote_src: true
+
+- name: Extract mimikatz 7z
+  when:
+    - not mimikatz_stat.stat.exists
+    - mimikatz_ext == '7z'
+  ansible.builtin.shell:
+    cmd: "7z x /tmp/mimikatz.7z -o{{ user_home }}/opt/mimikatz -y"
+
+- name: Clean up mimikatz temp archive
+  ansible.builtin.file:
+    path: "/tmp/mimikatz.{{ mimikatz_ext }}"
+    state: absent

@@ -1,0 +1,62 @@
+---
+- name: Get latest chisel release info
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/jpillora/chisel/releases/latest"
+    return_content: true
+  register: chisel_release
+
+- name: Ensure ~/opt/chisel directory exists
+  ansible.builtin.file:
+    path: "{{ user_home }}/opt/chisel"
+    state: directory
+    mode: "0755"
+
+- name: Check if chisel Linux binary exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/chisel/chisel_linux_amd64"
+  register: chisel_linux_stat
+
+- name: Download chisel Linux binary
+  when: not chisel_linux_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/jpillora/chisel/releases/download/{{ chisel_release.json.tag_name }}/chisel_{{ chisel_release.json.tag_name | regex_replace('^v', '') }}_linux_amd64.gz"
+    dest: "/tmp/chisel_linux.gz"
+    mode: "0644"
+
+- name: Decompress chisel Linux binary
+  when: not chisel_linux_stat.stat.exists
+  ansible.builtin.shell:
+    cmd: gunzip -c /tmp/chisel_linux.gz > {{ user_home }}/opt/chisel/chisel_linux_amd64
+
+- name: Set chisel Linux binary executable
+  when: not chisel_linux_stat.stat.exists
+  ansible.builtin.file:
+    path: "{{ user_home }}/opt/chisel/chisel_linux_amd64"
+    mode: "0755"
+
+- name: Check if chisel Windows binary exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/chisel/chisel.exe"
+  register: chisel_win_stat
+
+- name: Download chisel Windows binary
+  when: not chisel_win_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/jpillora/chisel/releases/download/{{ chisel_release.json.tag_name }}/chisel_{{ chisel_release.json.tag_name | regex_replace('^v', '') }}_windows_amd64.zip"
+    dest: "/tmp/chisel_windows.zip"
+    mode: "0644"
+
+- name: Extract chisel Windows binary
+  when: not chisel_win_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/chisel_windows.zip
+    dest: "{{ user_home }}/opt/chisel"
+    remote_src: true
+
+- name: Clean up chisel temp files
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /tmp/chisel_linux.gz
+    - /tmp/chisel_windows.zip

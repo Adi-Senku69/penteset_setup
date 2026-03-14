@@ -1,0 +1,42 @@
+---
+- name: Ensure ~/opt/Rubeus directory exists
+  ansible.builtin.file:
+    path: "{{ user_home }}/opt/Rubeus"
+    state: directory
+    mode: "0755"
+
+- name: Check if Rubeus is already downloaded
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/Rubeus/Rubeus.exe"
+  register: rubeus_stat
+
+- name: Fetch Rubeus release info
+  when: not rubeus_stat.stat.exists
+  block:
+    - name: Try self-hosted Gitea for Rubeus release
+      ansible.builtin.uri:
+        url: "https://bright-marginally-barnacle.ngrok-free.app/api/v1/repos/adi/Rubeus/releases?limit=1"
+        return_content: true
+      register: rubeus_gitea_release
+
+    - name: Set Rubeus download URL from Gitea
+      ansible.builtin.set_fact:
+        rubeus_asset_url: "{{ (rubeus_gitea_release.json | first).assets | selectattr('name', 'equalto', 'Rubeus.exe') | map(attribute='browser_download_url') | first }}"
+
+  rescue:
+    - name: Fall back to GitHub for Rubeus release
+      ansible.builtin.uri:
+        url: "https://api.github.com/repos/Adi-Senku69/Rubeus/releases/latest"
+        return_content: true
+      register: rubeus_github_release
+
+    - name: Set Rubeus download URL from GitHub
+      ansible.builtin.set_fact:
+        rubeus_asset_url: "{{ rubeus_github_release.json.assets | selectattr('name', 'equalto', 'Rubeus.exe') | map(attribute='browser_download_url') | first }}"
+
+- name: Download Rubeus.exe
+  when: not rubeus_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "{{ rubeus_asset_url }}"
+    dest: "{{ user_home }}/opt/Rubeus/Rubeus.exe"
+    mode: "0755"
