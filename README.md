@@ -78,6 +78,8 @@ A collection of custom penetration testing tools included in this environment.
 | **KRBRelayX** | Exploitation | Kerberos relaying and unconstrained delegation abuse toolkit |
 | **dnscat2** | C2 / Tunneling | DNS-based C2 and tunneling tool; server (Ruby) and client (C) built from source |
 | **dnscat2-powershell** | C2 / Tunneling | PowerShell client for dnscat2; connects Windows targets back to a dnscat2 server |
+| **bloodyAD** | Exploitation | Active Directory privilege escalation tool for abusing AD misconfigurations |
+| **targetedKerberoast** | Exploitation / Kerberos | Kerberoast attack tool that targets specific accounts by setting SPNs via DACL abuse |
 
 ## Binary Tools
 

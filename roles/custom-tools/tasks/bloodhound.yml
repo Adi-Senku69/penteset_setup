@@ -1,0 +1,35 @@
+---
+- name: Clone BloodHound.py
+  ansible.builtin.git:
+    repo: "https://github.com/dirkjanm/BloodHound.py.git"
+    dest: "{{ user_home }}/opt/Bloodhound.py"
+    depth: 1
+    update: true
+
+- name: Check if BloodHound.py venv exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/Bloodhound.py/.venv"
+  register: bloodhound_venv_stat
+
+- name: Set up BloodHound.py venv and install dependencies
+  when: not bloodhound_venv_stat.stat.exists
+  ansible.builtin.shell: |
+    cd {{ user_home }}/opt/Bloodhound.py
+    uv venv --python=3.11
+    source .venv/bin/activate
+    uv pip install .
+    uv pip install bloodhound-ce
+  args:
+    executable: /bin/bash
+
+- name: Add BloodHound.py alias to zsh
+  ansible.builtin.lineinfile:
+    path: "{{ zsh_custom }}/aliases.zsh"
+    line: "alias be=\"source '{{ user_home }}/opt/Bloodhound.py/.venv/bin/activate'\""
+    create: true
+    state: present
+
+- name: Source zshrc to load new alias
+  ansible.builtin.shell: source ~/.zshrc
+  args:
+    executable: /bin/zsh

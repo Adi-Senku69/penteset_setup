@@ -12,3 +12,4 @@
 - import_tasks: mimikatz.yml
 - import_tasks: rubeus.yml
 - import_tasks: chisel.yml
+- import_tasks: bloodhound.yml
