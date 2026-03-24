@@ -39,6 +39,8 @@
       - locate
       - krb5-user
       - ftp
+      - eza
+      - btop
     state: present
 
 - name: Check display server type
