@@ -1,10 +1,15 @@
 ---
+- name: Check if BloodHound.py directory exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/Bloodhound.py"
+  register: bloodhound_dir_stat
+
 - name: Clone BloodHound.py
+  when: not bloodhound_dir_stat.stat.exists
   ansible.builtin.git:
     repo: "https://github.com/dirkjanm/BloodHound.py.git"
     dest: "{{ user_home }}/opt/Bloodhound.py"
     depth: 1
-    update: true
 
 - name: Check if BloodHound.py venv exists
   ansible.builtin.stat:

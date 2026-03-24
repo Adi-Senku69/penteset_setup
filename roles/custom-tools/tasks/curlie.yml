@@ -1,0 +1,35 @@
+---
+- name: Check if curlie is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/curlie"
+  register: curlie_stat
+
+- name: Get latest curlie release info
+  when: not curlie_stat.stat.exists
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/rs/curlie/releases/latest"
+    return_content: true
+  register: curlie_release
+
+- name: Download curlie binary
+  when: not curlie_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/rs/curlie/releases/download/{{ curlie_release.json.tag_name }}/curlie_{{ curlie_release.json.tag_name | regex_replace('^v', '') }}_linux_amd64.tar.gz"
+    dest: "/tmp/curlie.tar.gz"
+    mode: "0644"
+
+- name: Extract curlie to ~/.local/bin
+  when: not curlie_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/curlie.tar.gz
+    dest: "{{ local_bin }}"
+    include:
+      - curlie
+    remote_src: true
+    mode: "0755"
+
+- name: Clean up curlie tarball
+  when: not curlie_stat.stat.exists
+  ansible.builtin.file:
+    path: /tmp/curlie.tar.gz
+    state: absent

@@ -13,3 +13,5 @@
 - import_tasks: rubeus.yml
 - import_tasks: chisel.yml
 - import_tasks: bloodhound.yml
+- import_tasks: curlie.yml
+- import_tasks: posting.yml

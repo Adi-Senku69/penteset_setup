@@ -1,0 +1,11 @@
+---
+- name: Check if posting is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/posting"
+  register: posting_stat
+
+- name: Install posting via uv
+  when: not posting_stat.stat.exists
+  ansible.builtin.shell: uv tool install posting
+  args:
+    executable: /bin/bash
