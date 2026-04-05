@@ -1,0 +1,35 @@
+---
+- name: Check if rusthound-ce is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/rusthound-ce"
+  register: rusthound_ce_stat
+
+- name: Get latest rusthound-ce release info
+  when: not rusthound_ce_stat.stat.exists
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/g0h4n/RustHound-CE/releases/latest"
+    return_content: true
+  register: rusthound_ce_release
+
+- name: Download rusthound-ce binary
+  when: not rusthound_ce_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/g0h4n/RustHound-CE/releases/download/{{ rusthound_ce_release.json.tag_name }}/rusthound-ce-Linux-gnu-x86_64.tar.gz"
+    dest: "/tmp/rusthound-ce.tar.gz"
+    mode: "0644"
+
+- name: Extract rusthound-ce to ~/.local/bin
+  when: not rusthound_ce_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/rusthound-ce.tar.gz
+    dest: "{{ local_bin }}"
+    include:
+      - rusthound-ce
+    remote_src: true
+    mode: "0755"
+
+- name: Clean up rusthound-ce tarball
+  when: not rusthound_ce_stat.stat.exists
+  ansible.builtin.file:
+    path: /tmp/rusthound-ce.tar.gz
+    state: absent
