@@ -36,6 +36,7 @@
       - openvpn
       - flameshot
       - exploitdb
+      - cupp
       - locate
       - krb5-user
       - ftp
