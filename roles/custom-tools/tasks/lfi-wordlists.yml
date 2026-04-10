@@ -1,0 +1,21 @@
+---
+- name: Ensure LFI wordlist directory exists
+  become: true
+  ansible.builtin.file:
+    path: /usr/share/wordlists/seclists/Fuzzing/LFI
+    state: directory
+    mode: "0755"
+
+- name: Download LFI-WordList-Windows
+  become: true
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/DragonJAR/Security-Wordlist/main/LFI-WordList-Windows"
+    dest: /usr/share/wordlists/seclists/Fuzzing/LFI/LFI-WordList-Windows
+    mode: "0644"
+
+- name: Download LFI-WordList-Linux
+  become: true
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/DragonJAR/Security-Wordlist/main/LFI-WordList-Linux"
+    dest: /usr/share/wordlists/seclists/Fuzzing/LFI/LFI-WordList-Linux
+    mode: "0644"

@@ -16,3 +16,4 @@
 - import_tasks: rusthound-ce.yml
 - import_tasks: curlie.yml
 - import_tasks: posting.yml
+- import_tasks: lfi-wordlists.yml
