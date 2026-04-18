@@ -1,0 +1,41 @@
+---
+- name: Install tmux
+  become: true
+  ansible.builtin.apt:
+    name: tmux
+    state: present
+
+- name: Create ~/.tmux/plugins directory
+  ansible.builtin.file:
+    path: "{{ user_home }}/.tmux/plugins"
+    state: directory
+    mode: "0755"
+
+- name: Clone TPM
+  ansible.builtin.git:
+    repo: "https://github.com/tmux-plugins/tpm"
+    dest: "{{ user_home }}/.tmux/plugins/tpm"
+    depth: 1
+    update: false
+
+- name: Create catppuccin plugin directory
+  ansible.builtin.file:
+    path: "{{ user_home }}/.config/tmux/plugins/catppuccin"
+    state: directory
+    mode: "0755"
+
+- name: Clone catppuccin tmux theme
+  ansible.builtin.git:
+    repo: "https://github.com/catppuccin/tmux.git"
+    dest: "{{ user_home }}/.config/tmux/plugins/catppuccin/tmux"
+    version: "v2.1.3"
+    depth: 1
+    update: false
+
+- name: Install TPM plugins headlessly
+  ansible.builtin.shell: |
+    TMUX_PLUGIN_MANAGER_PATH={{ user_home }}/.tmux/plugins \
+    {{ user_home }}/.tmux/plugins/tpm/bin/install_plugins
+  args:
+    executable: /bin/bash
+  changed_when: false

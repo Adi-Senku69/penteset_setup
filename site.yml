@@ -35,6 +35,8 @@
       tags: yazi
     - role: zellij
       tags: zellij
+    - role: tmux
+      tags: tmux
     - role: lazygit
       tags: lazygit
     - role: custom-tools

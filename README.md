@@ -45,6 +45,7 @@ Edit `group_vars/all.yml` to customize:
 | `uv`           | Installs uv Python package manager, adds shell completion                           |
 | `yazi`         | Downloads pre-built binary from GitHub releases to ~/.local/bin                     |
 | `zellij`       | Downloads pre-built binary from GitHub releases to ~/.local/bin, dumps default config |
+| `tmux`         | Installs tmux (apt), deploys .tmux.conf, clones TPM + catppuccin v2.1.3, installs all plugins headlessly |
 | `lazygit`      | Downloads latest release binary from GitHub to ~/.local/bin                        |
 | `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, ligolo-ng (proxy + agent), chisel (Linux + Windows), mimikatz, Rubeus, kerbrute (Linux + Windows), dnscat2 (server + client built from source), curlie, posting, and RustHound-CE |
 
