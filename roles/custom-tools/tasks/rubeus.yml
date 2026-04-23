@@ -15,7 +15,7 @@
   block:
     - name: Try self-hosted Gitea for Rubeus release
       ansible.builtin.uri:
-        url: "https://bright-marginally-barnacle.ngrok-free.app/api/v1/repos/adi/Rubeus/releases?limit=1"
+        url: "https://github.com/api/v1/repos/Adi-Senku69/Rubeus/releases?limit=1"
         return_content: true
       register: rubeus_gitea_release
 
