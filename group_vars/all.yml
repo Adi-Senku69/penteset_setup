@@ -10,7 +10,7 @@ jetbrains_nerd_font_version: "v3.4.0"
 jetbrains_nerd_font_url: "https://github.com/ryanoasis/nerd-fonts/releases/download/{{ jetbrains_nerd_font_version }}/JetBrainsMono.zip"
 
 alacritty_config_repo: "https://github.com/Adi-Senku69/alacritty_conf.git"
-nvim_config_repo: "https://githbu.com/Adi-Senku69/nvim.git"
+nvim_config_repo: "https://github.com/Adi-Senku69/nvim.git"
 
 ohmyzsh_install_url: "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
 zsh_custom: "{{ ansible_env.HOME }}/.oh-my-zsh/custom"
