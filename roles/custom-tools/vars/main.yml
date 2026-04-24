@@ -27,6 +27,7 @@ pentest_tools:
     }
   - { name: FinalRecon, repo: "https://github.com/thewhiteh4t/FinalRecon.git" }
   - { name: impacket, repo: "https://github.com/fortra/impacket.git" }
+  - { name: XXEInjector, repo: "https://github.com/enjoiz/XXEinjector.git" }
   - { name: PCredz, repo: "https://github.com/lgandx/PCredz.git" }
   - { name: KRBRelayX, repo: "https://github.com/dirkjanm/krbrelayx.git" }
   - {
@@ -34,6 +35,12 @@ pentest_tools:
       repo: "https://github.com/urbanadventurer/username-anarchy.git",
     }
   - { name: dnscat2, repo: "https://github.com/iagox86/dnscat2.git" }
-  - { name: dnscat2-powershell, repo: "https://github.com/lukebaggett/dnscat2-powershell.git" }
+  - {
+      name: dnscat2-powershell,
+      repo: "https://github.com/lukebaggett/dnscat2-powershell.git",
+    }
   - { name: bloodyAD, repo: "https://github.com/CravateRouge/bloodyAD.git" }
-  - { name: targetedKerberoast, repo: "https://github.com/ShutdownRepo/targetedKerberoast.git" }
+  - {
+      name: targetedKerberoast,
+      repo: "https://github.com/ShutdownRepo/targetedKerberoast.git",
+    }
