@@ -18,3 +18,4 @@
 - import_tasks: curlie.yml
 - import_tasks: posting.yml
 - import_tasks: lfi-wordlists.yml
+- import_tasks: eyewitness.yml

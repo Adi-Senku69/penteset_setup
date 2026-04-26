@@ -406,6 +406,14 @@ py() {
   bash "$HOME/.config/zellij/layouts/zj_python.sh" "$filename"
 }
 
+eyewitness() {
+  (
+    source "$HOME/opt/EyeWitness/eyewitness-venv/bin/activate" && \
+    cd "$HOME/opt/EyeWitness/Python" && \
+    ./EyeWitness.py "$@"
+  )
+}
+
 
 
 {% endraw %}

@@ -1,0 +1,14 @@
+---
+- name: Clone EyeWitness from GitHub
+  ansible.builtin.git:
+    repo: https://github.com/RedSiege/EyeWitness.git
+    dest: "{{ user_home }}/opt/EyeWitness"
+    depth: 1
+
+- name: Run EyeWitness setup script
+  become: true
+  ansible.builtin.shell: |
+    cd "{{ user_home }}/opt/EyeWitness/setup"
+    bash setup.sh
+  args:
+    creates: "{{ user_home }}/opt/EyeWitness/eyewitness-venv" # skip if already installed
