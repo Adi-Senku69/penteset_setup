@@ -17,6 +17,11 @@ pentest_tools:
     }
   - { name: Certipy, repo: "https://github.com/ly4k/Certipy.git" }
   - {
+      name: joomla-brute,
+      repo: "https://github.com/ajnik/joomla-bruteforce.git",
+    }
+  - { name: droopescan, repo: "https://github.com/SamJoan/droopescan.git" }
+  - {
       name: Invoke-TheHash,
       repo: "https://github.com/Kevin-Robertson/Invoke-TheHash",
     }
