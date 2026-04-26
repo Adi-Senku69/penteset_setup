@@ -35,7 +35,7 @@ Edit `group_vars/all.yml` to customize:
 
 | Role           | What it does                                                                        |
 |----------------|-------------------------------------------------------------------------------------|
-| `system`       | Updates apt, installs core tools (git, fzf, ripgrep, fd, jq, zoxide, luarocks…)   |
+| `system`       | Updates apt, installs core tools (git, fzf, ripgrep, fd, jq, zoxide, luarocks, wpscan…) |
 | `rust`         | Installs rustup + cargo                                                             |
 | `fonts`        | Downloads JetBrainsMono Nerd Font, rebuilds font cache                              |
 | `alacritty`    | Installs alacritty (apt → cargo fallback), clones config via ngrok, sets default   |
@@ -81,6 +81,8 @@ A collection of custom penetration testing tools included in this environment.
 | **dnscat2-powershell** | C2 / Tunneling | PowerShell client for dnscat2; connects Windows targets back to a dnscat2 server |
 | **bloodyAD** | Exploitation | Active Directory privilege escalation tool for abusing AD misconfigurations |
 | **targetedKerberoast** | Exploitation / Kerberos | Kerberoast attack tool that targets specific accounts by setting SPNs via DACL abuse |
+| **droopescan** | Web / CMS Scanning | Plugin-based CMS scanner supporting Drupal, WordPress, SilverStripe, Moodle, and Joomla |
+| **joomla-bruteforce** | Web / CMS Exploitation | Brute-force login tool targeting the Joomla CMS administrator panel |
 
 ## Binary Tools
 
@@ -101,6 +103,7 @@ A collection of custom penetration testing tools included in this environment.
 | **RustHound-CE** | Reconnaissance / AD | BloodHound CE data collector written in Rust for Active Directory enumeration |
 | **Go** | Runtime | Go language runtime; required by several tools and added to PATH |
 | **udpx** | Reconnaissance | Fast UDP port scanner; installed via `go install` |
+| **wpscan** | Web / CMS Scanning | WordPress vulnerability scanner for enumerating plugins, themes, and users (installed via apt) |
 
 
 

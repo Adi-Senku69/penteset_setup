@@ -12,6 +12,7 @@
       - git
       - nodejs
       - npm
+      - wpscan
       - xclip
       - ripgrep
       - fd-find
