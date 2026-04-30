@@ -19,3 +19,4 @@
 - import_tasks: posting.yml
 - import_tasks: lfi-wordlists.yml
 - import_tasks: eyewitness.yml
+- import_tasks: sliver.yml

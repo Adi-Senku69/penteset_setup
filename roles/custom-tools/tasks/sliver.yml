@@ -1,0 +1,11 @@
+---
+- name: Check if sliver-server is installed
+  ansible.builtin.stat:
+    path: /usr/local/bin/sliver-server
+  register: sliver_stat
+
+- name: Install Sliver C2 framework
+  when: not sliver_stat.stat.exists
+  ansible.builtin.shell:
+    cmd: curl https://sliver.sh/install | bash
+  become: true
