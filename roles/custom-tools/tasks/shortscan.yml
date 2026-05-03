@@ -1,0 +1,12 @@
+---
+- name: Check if shortscan is installed
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/go/bin/shortscan"
+  register: shortscan_stat
+
+- name: Install shortscan via go install
+  when: not shortscan_stat.stat.exists
+  ansible.builtin.command: /usr/local/go/bin/go install -v github.com/bitquark/shortscan/cmd/shortscan@latest
+  environment:
+    HOME: "{{ ansible_env.HOME }}"
+    GOPATH: "{{ ansible_env.HOME }}/go"

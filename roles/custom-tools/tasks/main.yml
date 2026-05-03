@@ -21,3 +21,4 @@
 - import_tasks: eyewitness.yml
 - import_tasks: sliver.yml
 - import_tasks: donut.yml
+- import_tasks: shortscan.yml
