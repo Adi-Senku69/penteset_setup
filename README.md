@@ -47,7 +47,7 @@ Edit `group_vars/all.yml` to customize:
 | `zellij`       | Downloads pre-built binary from GitHub releases to ~/.local/bin, dumps default config |
 | `tmux`         | Installs tmux (apt), deploys .tmux.conf, clones TPM + catppuccin v2.1.3, installs all plugins headlessly |
 | `lazygit`      | Downloads latest release binary from GitHub to ~/.local/bin                        |
-| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, ligolo-ng (proxy + agent), chisel (Linux + Windows), mimikatz, Rubeus, kerbrute (Linux + Windows), dnscat2 (server + client built from source), curlie, posting, RustHound-CE, udpx, shortscan, and Sliver C2 |
+| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, ligolo-ng (proxy + agent), chisel (Linux + Windows), mimikatz, Rubeus, kerbrute (Linux + Windows), dnscat2 (server + client built from source), curlie, posting, RustHound-CE, udpx, shortscan, GDB + PEDA, and Sliver C2 |
 
 # Custom Pentest Tools
 
@@ -104,6 +104,7 @@ A collection of custom penetration testing tools included in this environment.
 | **Go** | Runtime | Go language runtime; required by several tools and added to PATH |
 | **udpx** | Reconnaissance | Fast UDP port scanner; installed via `go install` |
 | **shortscan** | Reconnaissance | IIS short filename (8.3) enumeration tool; installed via `go install` |
+| **GDB + PEDA** | Exploitation / Debugging | GDB installed via apt; PEDA (Python Exploit Development Assistance) cloned to ~/peda and sourced in ~/.gdbinit |
 | **wpscan** | Web / CMS Scanning | WordPress vulnerability scanner for enumerating plugins, themes, and users (installed via apt) |
 | **Sliver** | C2 Framework | Open-source adversary simulation / C2 framework; server and client installed via official installer |
 
