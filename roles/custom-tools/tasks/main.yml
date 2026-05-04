@@ -21,5 +21,6 @@
 - import_tasks: sliver.yml
 - import_tasks: donut.yml
 - import_tasks: shortscan.yml
-- import_tasks: gdb-peda.yml
+- import_tasks: gdb-pwndbg.yml
+  tags: gdb-pwndbg
 - import_tasks: tldr.yml

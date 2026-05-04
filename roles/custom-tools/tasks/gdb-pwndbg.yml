@@ -1,0 +1,25 @@
+---
+- name: Install gdb
+  become: true
+  ansible.builtin.apt:
+    name: gdb
+    state: present
+
+- name: Clone pwndbg into ~/opt/pwndbg
+  ansible.builtin.git:
+    repo: "https://github.com/pwndbg/pwndbg.git"
+    dest: "{{ user_home }}/opt/pwndbg"
+    depth: 1
+    update: true
+
+- name: Check if pwndbg is already set up
+  ansible.builtin.stat:
+    path: "{{ user_home }}/opt/pwndbg/.setup-done"
+  register: pwndbg_setup_stat
+
+- name: Run pwndbg setup.sh
+  when: not pwndbg_setup_stat.stat.exists
+  become: true
+  ansible.builtin.command:
+    cmd: ./setup.sh
+    chdir: "{{ user_home }}/opt/pwndbg"
