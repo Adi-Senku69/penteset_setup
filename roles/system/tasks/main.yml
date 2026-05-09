@@ -15,6 +15,7 @@
       - wpscan
       - xclip
       - eom
+      - nfs-common
       - ripgrep
       - fd-find
       - fzf
@@ -48,7 +49,8 @@
 
 - name: Check display server type
   ansible.builtin.set_fact:
-    is_wayland: "{{ ansible_env.WAYLAND_DISPLAY is defined or ansible_env.XDG_SESSION_TYPE == 'wayland' }}"
+    is_wayland: "{{ ansible_env.WAYLAND_DISPLAY is defined or
+      ansible_env.XDG_SESSION_TYPE == 'wayland' }}"
 
 - name: Install freerdp for Wayland
   become: true
