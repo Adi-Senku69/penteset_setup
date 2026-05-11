@@ -1,0 +1,11 @@
+---
+- name: Check if impacket is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/impacket-secretsdump"
+  register: impacket_stat
+
+- name: Install impacket via uv
+  when: not impacket_stat.stat.exists
+  ansible.builtin.shell: uv tool install impacket
+  args:
+    executable: /bin/bash

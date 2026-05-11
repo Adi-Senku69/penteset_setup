@@ -30,7 +30,6 @@ pentest_tools:
   - {name: Linikatz, repo: "https://github.com/CiscoCXSecurity/linikatz.git"}
   - {name: KeyTabExtract, repo: "https://github.com/sosdave/KeyTabExtract.git"}
   - {name: FinalRecon, repo: "https://github.com/thewhiteh4t/FinalRecon.git"}
-  - {name: impacket, repo: "https://github.com/fortra/impacket.git"}
   - {name: XXEInjector, repo: "https://github.com/enjoiz/XXEinjector.git"}
   - {name: PCredz, repo: "https://github.com/lgandx/PCredz.git"}
   - {name: KRBRelayX, repo: "https://github.com/dirkjanm/krbrelayx.git"}
@@ -43,7 +42,6 @@ pentest_tools:
       name: dnscat2-powershell,
       repo: "https://github.com/lukebaggett/dnscat2-powershell.git",
     }
-  - {name: bloodyAD, repo: "https://github.com/CravateRouge/bloodyAD.git"}
   - {
       name: targetedKerberoast,
       repo: "https://github.com/ShutdownRepo/targetedKerberoast.git",

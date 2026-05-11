@@ -1,0 +1,11 @@
+---
+- name: Check if bloodyAD is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/bloodyAD"
+  register: bloodyad_stat
+
+- name: Install bloodyAD via uv
+  when: not bloodyad_stat.stat.exists
+  ansible.builtin.shell: uv tool install bloodyad
+  args:
+    executable: /bin/bash

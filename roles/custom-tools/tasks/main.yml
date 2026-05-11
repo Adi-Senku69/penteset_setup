@@ -16,6 +16,8 @@
 - import_tasks: rusthound-ce.yml
 - import_tasks: curlie.yml
 - import_tasks: posting.yml
+- import_tasks: bloodyad.yml
+- import_tasks: impacket.yml
 - import_tasks: lfi-wordlists.yml
 - import_tasks: eyewitness.yml
 - import_tasks: sliver.yml

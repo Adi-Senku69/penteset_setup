@@ -47,7 +47,7 @@ Edit `group_vars/all.yml` to customize:
 | `zellij`       | Downloads pre-built binary from GitHub releases to ~/.local/bin, dumps default config |
 | `tmux`         | Installs tmux (apt), deploys .tmux.conf, clones TPM + catppuccin v2.1.3, installs all plugins headlessly |
 | `lazygit`      | Downloads latest release binary from GitHub to ~/.local/bin                        |
-| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, ligolo-ng (proxy + agent), chisel (Linux + Windows), mimikatz, Rubeus, kerbrute (Linux + Windows), dnscat2 (server + client built from source), curlie, posting, RustHound-CE, udpx, shortscan, GDB + pwndbg, and Sliver C2 |
+| `custom_tools` | Clones pentest tools to ~/opt; installs Go runtime, RustScan, feroxbuster, subfinder, tealdeer, ligolo-ng (proxy + agent), chisel (Linux + Windows), mimikatz, Rubeus, kerbrute (Linux + Windows), dnscat2 (server + client built from source), curlie, posting, bloodyAD, impacket, RustHound-CE, udpx, shortscan, GDB + pwndbg, and Sliver C2 |
 
 # Custom Pentest Tools
 
@@ -65,7 +65,6 @@ A collection of custom penetration testing tools included in this environment.
 | **PEASS-ng** | Privilege Escalation | Privilege escalation awesome scripts suite (LinPEAS/WinPEAS) for local enumeration |
 | **enum4linux-ng** | Enumeration | SMB/Samba enumeration tool — next-generation rewrite of enum4linux |
 | **firefox_decrypt** | Credential Harvesting | Extracts credentials stored in Mozilla Firefox profiles |
-| **impacket** | Exploitation / Lateral Movement | Python library for working with network protocols; includes tools like psexec, secretsdump, etc. |
 | **odat** | Exploitation | Oracle Database Attacking Tool for testing Oracle DB instances |
 | **username-anarchy** | Reconnaissance | Generates username permutations from a target's name for use in attacks |
 | **KeyTabExtract** | Exploitation | Extracts hashes from keytab files |
@@ -79,7 +78,6 @@ A collection of custom penetration testing tools included in this environment.
 | **KRBRelayX** | Exploitation | Kerberos relaying and unconstrained delegation abuse toolkit |
 | **dnscat2** | C2 / Tunneling | DNS-based C2 and tunneling tool; server (Ruby) and client (C) built from source |
 | **dnscat2-powershell** | C2 / Tunneling | PowerShell client for dnscat2; connects Windows targets back to a dnscat2 server |
-| **bloodyAD** | Exploitation | Active Directory privilege escalation tool for abusing AD misconfigurations |
 | **targetedKerberoast** | Exploitation / Kerberos | Kerberoast attack tool that targets specific accounts by setting SPNs via DACL abuse |
 | **droopescan** | Web / CMS Scanning | Plugin-based CMS scanner supporting Drupal, WordPress, SilverStripe, Moodle, and Joomla |
 | **joomla-bruteforce** | Web / CMS Exploitation | Brute-force login tool targeting the Joomla CMS administrator panel |
@@ -100,6 +98,8 @@ A collection of custom penetration testing tools included in this environment.
 | **kerbrute** | Exploitation / Kerberos | Fast Kerberos brute-forcing and user enumeration tool |
 | **curlie** | Utility | curl frontend with httpie-like syntax highlighting and formatting |
 | **posting** | Utility | TUI HTTP client for testing and debugging APIs |
+| **bloodyAD** | Exploitation | Active Directory privilege escalation tool for abusing AD misconfigurations; installed via `uv tool install` |
+| **impacket** | Exploitation / Lateral Movement | Python suite for network protocol interaction (psexec, secretsdump, etc.); installed via `uv tool install` |
 | **RustHound-CE** | Reconnaissance / AD | BloodHound CE data collector written in Rust for Active Directory enumeration |
 | **Go** | Runtime | Go language runtime; required by several tools and added to PATH |
 | **udpx** | Reconnaissance | Fast UDP port scanner; installed via `go install` |
