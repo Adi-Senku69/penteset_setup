@@ -1,54 +1,49 @@
 pentest_tools:
-  - { name: enum4linux-ng, repo: "https://github.com/cddmp/enum4linux-ng.git" }
+  - {name: enum4linux-ng, repo: "https://github.com/cddmp/enum4linux-ng.git"}
+  - {name: firefox_decrypt, repo: "https://github.com/unode/firefox_decrypt.git"}
+  - {name: LaZagne, repo: "https://github.com/AlessandroZ/LaZagne.git"}
+  - {name: odat, repo: "https://github.com/quentinhardy/odat.git"}
+  - {name: PEASS-ng, repo: "https://github.com/peass-ng/PEASS-ng.git"}
+  - {name: PKINITtools, repo: "https://github.com/dirkjanm/PKINITtools.git"}
   - {
-      name: firefox_decrypt,
-      repo: "https://github.com/unode/firefox_decrypt.git",
+      name: windows_privesc,
+      repo: "https://git.senkulabs.dev/adi/windows_privesc.git",
     }
-  - { name: LaZagne, repo: "https://github.com/AlessandroZ/LaZagne.git" }
-  - { name: odat, repo: "https://github.com/quentinhardy/odat.git" }
-  - { name: PEASS-ng, repo: "https://github.com/peass-ng/PEASS-ng.git" }
-  - { name: PKINITtools, repo: "https://github.com/dirkjanm/PKINITtools.git" }
-  - { name: Pywhisker, repo: "https://github.com/ShutdownRepo/pywhisker.git" }
+  - {name: Pywhisker, repo: "https://github.com/ShutdownRepo/pywhisker.git"}
   - {
       name: SharpCollection,
       repo: "https://github.com/Flangvik/SharpCollection.git",
     }
-  - { name: Subbrute, repo: "https://github.com/TheRook/subbrute.git" }
-  - { name: O365Spray, repo: "https://github.com/0xZDH/o365spray.git" }
+  - {name: Subbrute, repo: "https://github.com/TheRook/subbrute.git"}
+  - {name: O365Spray, repo: "https://github.com/0xZDH/o365spray.git"}
   - {
       name: smtp-enum,
       repo: "https://github.com/pentestmonkey/smtp-user-enum.git",
     }
-  - { name: Certipy, repo: "https://github.com/ly4k/Certipy.git" }
-  - {
-      name: joomla-brute,
-      repo: "https://github.com/ajnik/joomla-bruteforce.git",
-    }
-  - { name: droopescan, repo: "https://github.com/SamJoan/droopescan.git" }
+  - {name: Certipy, repo: "https://github.com/ly4k/Certipy.git"}
+  - {name: joomla-brute, repo: "https://github.com/ajnik/joomla-bruteforce.git"}
+  - {name: droopescan, repo: "https://github.com/SamJoan/droopescan.git"}
   - {
       name: Invoke-TheHash,
       repo: "https://github.com/Kevin-Robertson/Invoke-TheHash",
     }
-  - { name: Linikatz, repo: "https://github.com/CiscoCXSecurity/linikatz.git" }
-  - {
-      name: KeyTabExtract,
-      repo: "https://github.com/sosdave/KeyTabExtract.git",
-    }
-  - { name: FinalRecon, repo: "https://github.com/thewhiteh4t/FinalRecon.git" }
-  - { name: impacket, repo: "https://github.com/fortra/impacket.git" }
-  - { name: XXEInjector, repo: "https://github.com/enjoiz/XXEinjector.git" }
-  - { name: PCredz, repo: "https://github.com/lgandx/PCredz.git" }
-  - { name: KRBRelayX, repo: "https://github.com/dirkjanm/krbrelayx.git" }
+  - {name: Linikatz, repo: "https://github.com/CiscoCXSecurity/linikatz.git"}
+  - {name: KeyTabExtract, repo: "https://github.com/sosdave/KeyTabExtract.git"}
+  - {name: FinalRecon, repo: "https://github.com/thewhiteh4t/FinalRecon.git"}
+  - {name: impacket, repo: "https://github.com/fortra/impacket.git"}
+  - {name: XXEInjector, repo: "https://github.com/enjoiz/XXEinjector.git"}
+  - {name: PCredz, repo: "https://github.com/lgandx/PCredz.git"}
+  - {name: KRBRelayX, repo: "https://github.com/dirkjanm/krbrelayx.git"}
   - {
       name: username-anarchy,
       repo: "https://github.com/urbanadventurer/username-anarchy.git",
     }
-  - { name: dnscat2, repo: "https://github.com/iagox86/dnscat2.git" }
+  - {name: dnscat2, repo: "https://github.com/iagox86/dnscat2.git"}
   - {
       name: dnscat2-powershell,
       repo: "https://github.com/lukebaggett/dnscat2-powershell.git",
     }
-  - { name: bloodyAD, repo: "https://github.com/CravateRouge/bloodyAD.git" }
+  - {name: bloodyAD, repo: "https://github.com/CravateRouge/bloodyAD.git"}
   - {
       name: targetedKerberoast,
       repo: "https://github.com/ShutdownRepo/targetedKerberoast.git",
