@@ -23,3 +23,9 @@
   ansible.builtin.command:
     cmd: ./setup.sh
     chdir: "{{ user_home }}/opt/pwndbg"
+
+- name: Mark pwndbg setup as done
+  when: not pwndbg_setup_stat.stat.exists
+  ansible.builtin.file:
+    path: "{{ user_home }}/opt/pwndbg/.setup-done"
+    state: touch

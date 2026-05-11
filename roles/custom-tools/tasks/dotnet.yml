@@ -1,0 +1,56 @@
+---
+- name: Check if dotnet is installed
+  ansible.builtin.stat:
+    path: "{{ user_home }}/.dotnet/dotnet"
+  register: dotnet_stat
+
+- name: Get .NET releases index
+  when: not dotnet_stat.stat.exists
+  ansible.builtin.uri:
+    url: "https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json"
+    return_content: true
+  register: dotnet_releases
+
+- name: Set latest active .NET channel fact
+  when: not dotnet_stat.stat.exists
+  ansible.builtin.set_fact:
+    dotnet_channel: >-
+      {{
+        dotnet_releases.json['releases-index']
+        | selectattr('support-phase', 'equalto', 'active')
+        | map(attribute='channel-version')
+        | map('float')
+        | max
+      }}
+
+- name: Install latest .NET SDK via install script
+  when: not dotnet_stat.stat.exists
+  ansible.builtin.shell: |
+    curl -sSL https://dot.net/v1/dotnet-install.sh | bash -s -- --channel {{ dotnet_channel }}
+  args:
+    executable: /bin/bash
+
+- name: Add dotnet to PATH in .zshrc
+  ansible.builtin.lineinfile:
+    path: "{{ user_home }}/.zshrc"
+    line: 'export PATH="$HOME/.dotnet:$HOME/.dotnet/tools:$PATH"'
+    state: present
+
+- name: Set DOTNET_ROOT in .zshrc
+  ansible.builtin.lineinfile:
+    path: "{{ user_home }}/.zshrc"
+    line: 'export DOTNET_ROOT="$HOME/.dotnet"'
+    state: present
+
+- name: Check if ilspycmd is installed
+  ansible.builtin.stat:
+    path: "{{ user_home }}/.dotnet/tools/ilspycmd"
+  register: ilspycmd_stat
+
+- name: Install ilspycmd via dotnet tool
+  when: not ilspycmd_stat.stat.exists
+  ansible.builtin.shell: |
+    export PATH="$HOME/.dotnet:$PATH"
+    dotnet tool install --global ilspycmd
+  args:
+    executable: /bin/bash

@@ -107,6 +107,8 @@ A collection of custom penetration testing tools included in this environment.
 | **GDB + pwndbg** | Exploitation / Debugging | GDB installed via apt; pwndbg cloned to ~/opt/pwndbg and installed via its `setup.sh` |
 | **wpscan** | Web / CMS Scanning | WordPress vulnerability scanner for enumerating plugins, themes, and users (installed via apt) |
 | **Sliver** | C2 Framework | Open-source adversary simulation / C2 framework; server and client installed via official installer |
+| **.NET SDK** | Runtime | Latest .NET SDK installed via official install script to `~/.dotnet` |
+| **ilspycmd** | Reverse Engineering | .NET decompiler CLI tool; installed via `dotnet tool install --global` |
 
 
 

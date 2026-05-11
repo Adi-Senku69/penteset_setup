@@ -25,4 +25,6 @@
 - import_tasks: shortscan.yml
 - import_tasks: gdb-pwndbg.yml
   tags: gdb-pwndbg
+- import_tasks: dotnet.yml
+  tags: dotnet
 - import_tasks: tldr.yml
