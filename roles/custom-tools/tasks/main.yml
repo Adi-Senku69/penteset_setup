@@ -28,6 +28,7 @@
 - import_tasks: bloodhound.yml
   tags: bloodhound
 - import_tasks: rusthound-ce.yml
+  tags: rusthound-ce
 - import_tasks: curlie.yml
   tags: curlie
 - import_tasks: posting.yml
