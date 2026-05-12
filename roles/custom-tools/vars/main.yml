@@ -7,7 +7,7 @@ pentest_tools:
   - {name: PKINITtools, repo: "https://github.com/dirkjanm/PKINITtools.git"}
   - {
       name: windows_privesc,
-      repo: "https://git.senkulabs.dev/adi/windows_privesc.git",
+      repo: "https://github.com/Adi-Senku69/windows_privesc.git",
     }
   - {name: Pywhisker, repo: "https://github.com/ShutdownRepo/pywhisker.git"}
   - {
