@@ -1,0 +1,11 @@
+---
+- name: Check if impacket is installed
+  ansible.builtin.stat:
+    path: "{{ local_bin }}/wes"
+  register: wes_stat
+
+- name: Install wes via uv
+  when: not wes_stat.stat.exists
+  ansible.builtin.shell: uv tool install wesng
+  args:
+    executable: /bin/bash

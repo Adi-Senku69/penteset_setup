@@ -51,5 +51,7 @@
   tags: gdb-pwndbg
 - import_tasks: dotnet.yml
   tags: dotnet
+- import_tasks: wes.yml
+  tags: wes
 - import_tasks: tldr.yml
   tags: tldr
