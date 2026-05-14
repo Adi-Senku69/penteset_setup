@@ -6,6 +6,6 @@
 
 - name: Install wes via uv
   when: not wes_stat.stat.exists
-  ansible.builtin.shell: uv tool install wesng
+  ansible.builtin.shell: uv tool install wesng --with chardet --with termcolor --with mechanicalsoup
   args:
     executable: /bin/bash
