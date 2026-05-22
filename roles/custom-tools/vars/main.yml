@@ -5,6 +5,7 @@ pentest_tools:
   - {name: odat, repo: "https://github.com/quentinhardy/odat.git"}
   - {name: PEASS-ng, repo: "https://github.com/peass-ng/PEASS-ng.git"}
   - {name: PKINITtools, repo: "https://github.com/dirkjanm/PKINITtools.git"}
+  - {name: ntlm_theft, repo: "https://github.com/Greenwolf/ntlm_theft.git"}
   - {
       name: windows_privesc,
       repo: "https://github.com/Adi-Senku69/windows_privesc.git",
