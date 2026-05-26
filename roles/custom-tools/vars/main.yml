@@ -7,6 +7,10 @@ pentest_tools:
   - {name: PKINITtools, repo: "https://github.com/dirkjanm/PKINITtools.git"}
   - {name: ntlm_theft, repo: "https://github.com/Greenwolf/ntlm_theft.git"}
   - {
+      name: linux_privesc,
+      repo: "https://github.com/Adi-Senku69/Linux_privesc.git",
+    }
+  - {
       name: windows_privesc,
       repo: "https://github.com/Adi-Senku69/windows_privesc.git",
     }
