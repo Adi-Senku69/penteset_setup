@@ -39,6 +39,8 @@
       tags: tmux
     - role: lazygit
       tags: lazygit
+    - role: helix
+      tags: helix
     - role: custom-tools
       tags: custom-tools
 

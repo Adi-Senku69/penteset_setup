@@ -1,0 +1,40 @@
+---
+- name: Check if helix config already exists
+  ansible.builtin.stat:
+    path: "{{ user_home }}/.config/helix"
+  register: helix_config_stat
+
+- name: Clone helix config from repo
+  when: not helix_config_stat.stat.exists
+  ansible.builtin.git:
+    repo: "{{ helix_config_repo }}"
+    dest: "{{ user_home }}/.config/helix"
+    depth: 1
+
+- name: Check if taplo-cli is installed
+  ansible.builtin.stat:
+    path: "{{ cargo_bin }}/taplo"
+  register: taplo_stat
+
+- name: Install taplo-cli (TOML LSP) via cargo
+  when: not taplo_stat.stat.exists
+  ansible.builtin.shell: |
+    source {{ user_home }}/.cargo/env
+    cargo install taplo-cli --locked --features lsp
+  args:
+    executable: /bin/bash
+    creates: "{{ cargo_bin }}/taplo"
+
+- name: Check if bashls is installed
+  ansible.builtin.stat:
+    path: "{{ cargo_bin }}/bashls"
+  register: bashls_stat
+
+- name: Install bashls via cargo
+  when: not bashls_stat.stat.exists
+  ansible.builtin.shell: |
+    source {{ user_home }}/.cargo/env
+    cargo install bashls
+  args:
+    executable: /bin/bash
+    creates: "{{ cargo_bin }}/bashls"

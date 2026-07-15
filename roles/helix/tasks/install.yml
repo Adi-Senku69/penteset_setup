@@ -1,0 +1,52 @@
+---
+- name: Check if helix is installed
+  ansible.builtin.stat:
+    path: /opt/helix
+  register: helix_stat
+
+- name: Get latest helix release version
+  when: not helix_stat.stat.exists
+  ansible.builtin.uri:
+    url: "https://api.github.com/repos/helix-editor/helix/releases/latest"
+    return_content: true
+  register: helix_release
+
+- name: Set helix version fact
+  when: not helix_stat.stat.exists
+  ansible.builtin.set_fact:
+    helix_version: "{{ helix_release.json.tag_name }}"
+
+- name: Download helix release tarball
+  when: not helix_stat.stat.exists
+  ansible.builtin.get_url:
+    url: "https://github.com/helix-editor/helix/releases/download/{{ helix_version }}/helix-{{ helix_version }}-x86_64-linux.tar.xz"
+    dest: "/tmp/helix.tar.xz"
+    mode: "0644"
+
+- name: Extract helix to /opt
+  become: true
+  when: not helix_stat.stat.exists
+  ansible.builtin.unarchive:
+    src: /tmp/helix.tar.xz
+    dest: /opt
+    remote_src: true
+
+- name: Rename extracted helix directory to /opt/helix
+  become: true
+  when: not helix_stat.stat.exists
+  ansible.builtin.command:
+    cmd: mv /opt/helix-{{ helix_version }}-x86_64-linux /opt/helix
+  changed_when: true
+
+- name: Symlink hx binary to ~/.local/bin
+  ansible.builtin.file:
+    src: /opt/helix/hx
+    dest: "{{ local_bin }}/hx"
+    state: link
+    force: true
+
+- name: Clean up helix tarball
+  when: not helix_stat.stat.exists
+  ansible.builtin.file:
+    path: /tmp/helix.tar.xz
+    state: absent
